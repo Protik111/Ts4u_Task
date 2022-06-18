@@ -1,8 +1,22 @@
 import styles from '../styles/Login.module.scss';
 import Head from 'next/head'
 import Link from 'next/link';
+import { useState } from 'react';
 
 const register = () => {
+    const [formData, setFormData] = useState({
+        firstName: '',
+        lastName: '',
+        email: '',
+        phone: '',
+        password: ''
+    });
+
+    const handleChange = (e) => {
+        setFormData({...formData, [e.target.name]: e.target.value})
+    }
+
+    const { firstName, lastName, email, phone, password } = formData;
     return (
         <div className={`${styles.container} p-0`}>
             <Head>
@@ -17,27 +31,27 @@ const register = () => {
                     <div>
                         <label htmlFor="firstName">First Name</label>
                         <br />
-                        <input className={`${styles.input} justify-content-center`} type="text" name="firstName" id="firstName" placeholder="Enter First Name" />
+                        <input className={`${styles.input} justify-content-center`} type="text" name="firstName" id="firstName" placeholder="Enter First Name" value={firstName} onChange={handleChange}/>
                     </div>
                     <div>
                         <label htmlFor="lastName">Last Name</label>
                         <br />
-                        <input className={`${styles.input} justify-content-center`} type="text" name="lastName" id="lastName" placeholder="Enter Last Name" />
+                        <input className={`${styles.input} justify-content-center`} type="text" name="lastName" id="lastName" placeholder="Enter Last Name" value={lastName} onChange={handleChange}/>
                     </div>
                     <div>
                         <label htmlFor="email">Email</label>
                         <br />
-                        <input className={`${styles.input} justify-content-center`} type="email" name="email" id="email" placeholder="Enter Email" />
+                        <input className={`${styles.input} justify-content-center`} type="email" name="email" id="email" placeholder="Enter Email" value={email} onChange={handleChange}/>
                     </div>
                     <div>
                         <label htmlFor="phone">Phone</label>
                         <br />
-                        <input className={`${styles.input} justify-content-center`} type="text" name="phone" id="phone" placeholder="Enter Phone Number" />
+                        <input className={`${styles.input} justify-content-center`} type="text" name="phone" id="phone" placeholder="Enter Phone Number" value={phone} onChange={handleChange}/>
                     </div>
                     <div className="mt-3">
                         <label htmlFor="password">Password</label>
                         <br />
-                        <input className={`${styles.input} justify-content-center`} type="password" name="password" id="password" placeholder="Enter Password" />
+                        <input className={`${styles.input} justify-content-center`} type="password" name="password" id="password" placeholder="Enter Password" value={password} onChange={handleChange}/>
                     </div>
                     <div className="mt-4 pt-1">
                         <input className={`${styles.loginBtn} justify-content-center`} type="submit" id="register" value="Register"/>
