@@ -4,17 +4,19 @@ import Head from 'next/head'
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { loginUser } from '../redux/action/Auth.action';
+import { useRouter } from 'next/router';
 
 const login = () => {
+    const { token, isAuthenticated } = useSelector((state => state.authReducer));
+    const dispatch = useDispatch();
+    
     const [formData, setFormData] = useState({
         email: '',
         password: ''
     });
 
-    const { token, isAuthenticated } = useSelector((state => state.authReducer));
-    const dispatch = useDispatch();
-
     const { email, password } = formData;
+    const router = useRouter();
 
     const handleChange = (e) => {
         setFormData({...formData, [e.target.name]: e.target.value})
@@ -27,15 +29,15 @@ const login = () => {
         }
     }
 
-    // if (isAuthenticated) {
-    //     return (<Navigate to="/dashboard"></Navigate>)
-    // }
+    if(isAuthenticated) {
+        router.push('/user');
+    }
 
     return (
         <div className={`${styles.container} p-0`}>
             <Head>
                 <title>Login User</title>
-                <meta name="description" content="Online shop for fresh foods" />
+                <meta name="description" content="Login User" />
             </Head>
             <div className={`${styles.loginContainer} mt-5`}>
                 <div className="mt-3">

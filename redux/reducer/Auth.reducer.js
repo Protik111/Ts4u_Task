@@ -5,7 +5,11 @@ const initialState = {
     user: null,
     isAuthenticated: false,
     loading: true,
-    error: {}
+    error: {},
+    isOtpSend: {
+        isOtpSend: false,
+        email: ''
+    }
 }
 
 const authReducer = (state = initialState, {type, payload}) => {
@@ -18,6 +22,10 @@ const authReducer = (state = initialState, {type, payload}) => {
                 loading: false
             };
         case ActionTypes.REGISTER_SUCCESS:
+            return {
+                ...state,
+                isOtpSend: payload
+            }
         case ActionTypes.LOGIN_SUCCESS:
             localStorage.setItem('token', payload.token)
             return {

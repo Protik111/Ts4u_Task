@@ -2,8 +2,14 @@ import styles from '../styles/Login.module.scss';
 import Head from 'next/head'
 import Link from 'next/link';
 import { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useRouter } from 'next/router';
+import { registerUser } from '../redux/action/Auth.action';
 
 const register = () => {
+    const { isOtpSend } = useSelector((state => state.authReducer));
+    const dispatch = useDispatch();
+
     const [formData, setFormData] = useState({
         firstName: '',
         lastName: '',
@@ -11,23 +17,39 @@ const register = () => {
         phone: '',
         password: ''
     });
+    
+    const { firstName, lastName, email, phone, password } = formData;
+
+    const router = useRouter();
 
     const handleChange = (e) => {
         setFormData({...formData, [e.target.name]: e.target.value})
     }
 
-    const { firstName, lastName, email, phone, password } = formData;
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        if (firstName && lastName && email && phone && password) {
+            dispatch(registerUser({ firstName, lastName, email, phone, password }))
+        }
+    }
+
+    if(isOtpSend.email && isOtpSend.isOtpSend) {
+        router.push('/verify');
+    }
+
+    console.log(isOtpSend, 'from register');
+
     return (
         <div className={`${styles.container} p-0`}>
             <Head>
-                <title>Login User</title>
-                <meta name="description" content="Online shop for fresh foods" />
+                <title>Register User</title>
+                <meta name="description" content="Register User" />
             </Head>
             <div className={`${styles.loginContainer} mt-5`}>
                 <div className="mt-3">
                     <h5 className="d-flex justify-content-center">Register Now.</h5>
                 </div>
-                <form className={styles.allInput}>
+                <form className={styles.allInput} onSubmit={handleSubmit}>
                     <div>
                         <label htmlFor="firstName">First Name</label>
                         <br />

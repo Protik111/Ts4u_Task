@@ -23,33 +23,33 @@ import { ActionTypes } from './Auth.type';
 // }
 
 //register a user
-export const registerUser = ({ name, email, password }) => async dispatch => {
+export const registerUser = ({ firstName, lastName, email, phone, password }) => async dispatch => {
     const headersConfig = {
         headers: {
             'Content-Type': 'application/json'
         }
     }
 
-    const body = JSON.stringify({ name, email, password });
+    const body = JSON.stringify({ firstName, lastName, email, phone, password });
 
     try {
-        const response = await axios.post('/api/user/register', body, headersConfig);
+        const response = await axios.post('https://api-staging.ts4u.us/api/user/register', body, headersConfig);
 
         dispatch({
             type: ActionTypes.REGISTER_SUCCESS,
             payload: response.data
         });
 
-        dispatch(loadUser());
+        // dispatch(loadUser());
 
-        dispatch(setAlert('Account Has Been Created.', 'Pcreated'))
+        // dispatch(setAlert('Account Has Been Created.', 'Pcreated'))
 
     } catch (error) {
         const errors = error.response.data.errors;
         // console.log(errors, 'errors');
-        if (errors) {
-            errors.map(error => dispatch(setAlert(error.msg, 'notMatchedP')))
-        }
+        // if (errors) {
+        //     errors.map(error => dispatch(setAlert(error.msg, 'notMatchedP')))
+        // }
         dispatch({
             type: ActionTypes.REGISTER_FAIL
         });
