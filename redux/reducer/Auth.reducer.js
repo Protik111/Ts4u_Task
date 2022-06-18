@@ -1,24 +1,24 @@
-// import { ActionTypes } from '../action/Auth.types';
+import  { ActionTypes } from '../action/Auth.type.js';
 
 const initialState = {
-    // token: localStorage.getItem('token'),
-    token: '',
+    token: typeof window !== 'undefined' ? localStorage.getItem('token') : null,
     user: null,
     isAuthenticated: false,
-    loading: true
+    loading: true,
+    error: {}
 }
 
 const authReducer = (state = initialState, {type, payload}) => {
     switch(type){
-//         case ActionTypes.USER_LOADED:
-//             return {
-//                 ...state,
-//                 user: payload,
-//                 isAuthenticated: true,
-//                 loading: false
-//             };
-        case 'REGISTER_SUCCESS':
-        // case ActionTypes.LOGIN_SUCCESS:
+        case ActionTypes.USER_LOADED:
+            return {
+                ...state,
+                user: payload,
+                isAuthenticated: true,
+                loading: false
+            };
+        case ActionTypes.REGISTER_SUCCESS:
+        case ActionTypes.LOGIN_SUCCESS:
             localStorage.setItem('token', payload.token)
             return {
                 ...state,
@@ -26,18 +26,18 @@ const authReducer = (state = initialState, {type, payload}) => {
                 isAuthenticated: true,
                 loading: false
             };
-//         case ActionTypes.REGISTER_FAIL:
-//         case ActionTypes.AUTH_ERROR:
-//         case ActionTypes.LOGIN_FAIL:
-//         case ActionTypes.LOGOUT:
-//         case 'ACCOUNT_DELETE':
-//             localStorage.removeItem('token')
-//             return {
-//                 ...state,
-//                 token: null,
-//                 isAuthenticated: false,
-//                 loading: false
-//             };
+        case ActionTypes.REGISTER_FAIL:
+        case ActionTypes.AUTH_ERROR:
+        case ActionTypes.LOGIN_FAIL:
+        case ActionTypes.LOGOUT:
+        case 'ACCOUNT_DELETE':
+            localStorage.removeItem('token')
+            return {
+                ...state,
+                token: null,
+                isAuthenticated: false,
+                loading: false
+            };
         default:
             return state;
     }

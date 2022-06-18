@@ -1,8 +1,36 @@
 import styles from '../styles/Login.module.scss';
 import Link from 'next/link';
 import Head from 'next/head'
+import { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { loginUser } from '../redux/action/Auth.action';
 
 const login = () => {
+    const [formData, setFormData] = useState({
+        email: '',
+        password: ''
+    });
+
+    const { token, isAuthenticated } = useSelector((state => state.authReducer));
+    const dispatch = useDispatch();
+
+    const { email, password } = formData;
+
+    const handleChange = (e) => {
+        setFormData({...formData, [e.target.name]: e.target.value})
+    }
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        if (email && password) {
+            dispatch(loginUser({ email, password }))
+        }
+    }
+
+    // if (isAuthenticated) {
+    //     return (<Navigate to="/dashboard"></Navigate>)
+    // }
+
     return (
         <div className={`${styles.container} p-0`}>
             <Head>
@@ -13,16 +41,16 @@ const login = () => {
                 <div className="mt-3">
                     <h5 className="d-flex justify-content-center">Login with your email and password.</h5>
                 </div>
-                <form className={styles.allInput}>
+                <form className={styles.allInput} onSubmit={handleSubmit}>
                     <div>
                         <label htmlFor="email">Email</label>
                         <br />
-                        <input className={`${styles.input} justify-content-center`} type="email" name="email" id="email" placeholder="Enter Email" />
+                        <input className={`${styles.input} justify-content-center`} type="email" name="email" id="email" placeholder="Enter Email" value={email} onChange={handleChange}/>
                     </div>
                     <div className="mt-3">
                         <label htmlFor="password">Password</label>
                         <br />
-                        <input className={`${styles.input} justify-content-center`} type="password" name="password" id="password" placeholder="Enter Password" />
+                        <input className={`${styles.input} justify-content-center`} type="password" name="password" id="password" placeholder="Enter Password" value={password} onChange={handleChange}/>
                     </div>
                     <div className="mt-4 pt-1">
                         <input className={`${styles.loginBtn} justify-content-center`} type="submit" id="login" value="Login"/>
