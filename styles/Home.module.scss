@@ -1,7 +1,13 @@
-.container {
-  padding: 0 2rem;
-}
+@import "mixins";
 
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.btnContainer{
+  margin-top: 5rem;
+}
 .main {
   min-height: 100vh;
   padding: 4rem 0;
@@ -109,8 +115,10 @@
 }
 
 @media (max-width: 600px) {
-  .grid {
-    width: 100%;
-    flex-direction: column;
+  @include desktop() {
+    .grid {
+      width: 100%;
+      flex-direction: column;
+    }
   }
 }

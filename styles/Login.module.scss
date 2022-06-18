@@ -1,0 +1,115 @@
+.container {
+    display: flex;
+    justify-content: center;
+}
+.loginContainer {
+    background-color: #e8e9eb;
+    width: 45%;
+    min-height: 65vh;
+    border-radius: 20px;
+}
+
+// .title {
+//     font-weight: 400;
+//     font-size: large;
+// }
+
+.allInput {
+    display: grid;
+    place-items: center;
+}
+
+.input {
+    width: 30vw;
+    border: 1px solid #1d1588;
+    border-radius: 7px;
+    padding: 0.8rem 0.2rem;
+    transition: border 0.1s ease;
+
+    &:focus {
+        border: 1px solid #1d1588;
+        outline: none;
+    }
+}
+
+// .input:focus {
+//     border: 1px solid #127e5a;
+//     outline: none;
+// }
+.loginBtn {
+    background-color: #1d1588;
+    width: 30vw;
+    padding: 0.8rem 0.2rem;
+    border-radius: 7px;
+    border: none;
+    color: white;
+    transition: background-color 0.2s ease;
+
+    &:hover {
+        background-color: #341eb4;
+    }
+}
+
+// .loginBtn:hover {
+//     background-color: #127e5a;
+// }
+
+// .account {
+//     font-weight: 400;
+//     transition: all 0.2s ease;
+// }
+
+.register:hover {
+    cursor: pointer;
+}
+
+@media screen and (max-width: 1000px) {
+    .loginContainer {
+        min-width: 55%;
+        min-height: 65vh;
+    }
+
+    .input {
+        width: 41vw;
+        padding: 0.8rem 0.2rem;
+    }
+
+    .loginBtn {
+        width: 41vw;
+        padding: 0.8rem 0.2rem;
+    }
+}
+
+@media screen and (max-width: 900px) {
+    .loginContainer {
+        min-width: 50%;
+        min-height: 65vh;
+    }
+
+    .input {
+        width: 38vw;
+        padding: 0.8rem 0.2rem;
+    }
+
+    .loginBtn {
+        width: 38vw;
+        padding: 0.8rem 0.2rem;
+    }
+}
+
+@media screen and (max-width: 750px) {
+    .loginContainer {
+        min-width: 70%;
+        min-height: 65vh;
+    }
+
+    .input {
+        width: 45vw;
+        padding: 0.8rem 0.2rem;
+    }
+
+    .loginBtn {
+        width: 45vw;
+        padding: 0.8rem 0.2rem;
+    }
+}
