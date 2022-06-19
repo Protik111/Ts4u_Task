@@ -6,6 +6,7 @@ import { useState } from 'react';
 import { sendOtp } from '../../redux/action/Auth.action';
 import { useRouter } from 'next/router';
 import Alert from '../../components/alert/Alert';
+import { setAlert } from '../../redux/action/Alert.action';
 
 
 const index = () => {
@@ -29,6 +30,9 @@ const index = () => {
         if (email && otp) {
             dispatch(sendOtp({ email, otp }))
         }
+        if(!otp) {
+            dispatch(setAlert('Please Enter OTP'))
+        }
     }
 
     if(isAuthenticated && token) {
@@ -40,7 +44,7 @@ const index = () => {
                 <title>OTP Send</title>
                 <meta name="description" content="OTP" />
             </Head>
-            <div className={`${styles.loginContainer} mt-5`}>
+            {emailPayload ? <div className={`${styles.loginContainer} mt-5`}>
                 <Alert></Alert>
                 <div className="mt-3">
                     <h5 className="d-flex justify-content-center">Please Enter Your OTP That Was Sent To You Email.</h5>
@@ -60,7 +64,9 @@ const index = () => {
                         <input className={`${styles.loginBtn} justify-content-center`} type="submit" id="otp" value="Submit" />
                     </div>
                 </form>
-            </div>
+            </div> : <div>
+                <h1>There is nothing to do verification</h1>
+                </div>}
         </div>
     );
 };

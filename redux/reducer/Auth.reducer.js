@@ -8,7 +8,7 @@ const initialState = {
     error: {},
     isOtpSend: {
         isOtpSend: false,
-        email: ''
+        email: typeof window !== 'undefined' ? localStorage.getItem('email') : ''
     },
     success: false
 }
@@ -24,6 +24,7 @@ const authReducer = (state = initialState, {type, payload}) => {
                 success: true
             };
         case ActionTypes.REGISTER_SUCCESS:
+            localStorage.setItem('email', payload.email)
             return {
                 ...state,
                 isOtpSend: payload
@@ -44,6 +45,7 @@ const authReducer = (state = initialState, {type, payload}) => {
         case ActionTypes.OTP_FAIL:
         case ActionTypes.LOGOUT:
             localStorage.removeItem('token')
+            localStorage.removeItem('email')
             return {
                 ...state,
                 token: null,
