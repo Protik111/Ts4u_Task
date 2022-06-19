@@ -9,7 +9,8 @@ const initialState = {
     isOtpSend: {
         isOtpSend: false,
         email: ''
-    }
+    },
+    success: false
 }
 
 const authReducer = (state = initialState, {type, payload}) => {
@@ -27,18 +28,21 @@ const authReducer = (state = initialState, {type, payload}) => {
                 isOtpSend: payload
             }
         case ActionTypes.LOGIN_SUCCESS:
+        case ActionTypes.OTP_SEND:
+            console.log(payload, 'payload');
             localStorage.setItem('token', payload.token)
             return {
                 ...state,
                 ...payload,
                 isAuthenticated: true,
-                loading: false
+                loading: false,
+                success: payload.success
             };
         case ActionTypes.REGISTER_FAIL:
         case ActionTypes.AUTH_ERROR:
         case ActionTypes.LOGIN_FAIL:
+        case ActionTypes.OTP_FAIL:
         case ActionTypes.LOGOUT:
-        case 'ACCOUNT_DELETE':
             localStorage.removeItem('token')
             return {
                 ...state,

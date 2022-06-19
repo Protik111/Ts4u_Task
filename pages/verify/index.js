@@ -3,23 +3,37 @@ import Head from 'next/head'
 import Link from 'next/link';
 import { useSelector, useDispatch } from 'react-redux';
 import { useState } from 'react';
+import { sendOtp } from '../../redux/action/Auth.action';
+import { useRouter } from 'next/router';
+
 
 const index = () => {
-    const { isOtpSend } = useSelector((state => state.authReducer));
+    const { isOtpSend, token, isAuthenticated } = useSelector((state => state.authReducer));
     const dispatch = useDispatch();
+    const { email: emailPayload, isOtpSend: otpPayload } = isOtpSend;
 
     const [formData, setFormData] = useState({
         email: isOtpSend.email ? isOtpSend.email : '',
         otp: ''
     });
     console.log(isOtpSend, 'from verify');
-    const { email, otp } = formData;
-    const handleChange = () => {
 
+    const { email, otp } = formData;
+    const router = useRouter();
+
+    const handleChange = (e) => {
+        setFormData({...formData, [e.target.name]: e.target.value})
     }
 
-    const handleSubmit = () => {
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if (email && otp) {
+            dispatch(sendOtp({ email, otp }))
+        }
+    }
 
+    if(isAuthenticated && token) {
+        router.push('/user')
     }
     return (
         <div className={`${styles.container} p-0`}>

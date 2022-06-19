@@ -58,7 +58,6 @@ export const registerUser = ({ firstName, lastName, email, phone, password }) =>
 
 //login a user
 export const loginUser = ({ email, password }) => async dispatch => {
-    console.log(email, password, 'from action');
     const headersConfig = {
         headers: {
             'Content-Type': 'application/json'
@@ -85,6 +84,37 @@ export const loginUser = ({ email, password }) => async dispatch => {
         // }
         dispatch({
             type: ActionTypes.LOGIN_FAIL
+        })
+    }
+}
+//send otp
+export const sendOtp = ({ email, otp }) => async dispatch => {
+    const headersConfig = {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }
+
+    const body = JSON.stringify({ email, otp });
+
+    try {
+        const response = await axios.post('https://api-staging.ts4u.us/api/user/verifyotp', body, headersConfig);
+
+        dispatch({
+            type: ActionTypes.OTP_SEND,
+            payload: response.data
+        });
+
+        // dispatch(loadUser());
+
+    } catch (error) {
+        const errors = error.response.data.errors;
+        // console.log(errors, 'errors');
+        // if (errors) {
+        //     errors.map(error => dispatch(setAlert(error.msg, 'notMatchedP')))
+        // }
+        dispatch({
+            type: ActionTypes.OTP_FAIL
         })
     }
 }
