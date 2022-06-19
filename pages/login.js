@@ -29,7 +29,7 @@ const login = () => {
         }
     }
 
-    if(isAuthenticated) {
+    if(isAuthenticated || token) {
         router.push('/user');
     }
 

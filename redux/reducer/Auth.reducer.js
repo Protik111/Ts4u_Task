@@ -20,7 +20,8 @@ const authReducer = (state = initialState, {type, payload}) => {
                 ...state,
                 user: payload,
                 isAuthenticated: true,
-                loading: false
+                loading: false,
+                success: true
             };
         case ActionTypes.REGISTER_SUCCESS:
             return {

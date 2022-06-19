@@ -1,26 +1,25 @@
 import axios from 'axios';
-// import { ActionTypes } from './Auth.types';
+import setAuthToken from '../../utils/setAuthToken';
 import { ActionTypes } from './Auth.type';
-// import setAuthToken from '../../utils/setAuthToken';
 
-// export const loadUser = () => async dispatch => {
-//     if (localStorage.token) {
-//         setAuthToken(localStorage.token);
-//     }
+export const loadUser = () => async dispatch => {
+    if (localStorage.token) {
+        setAuthToken(localStorage.token);
+    }
 
-//     try {
-//         const response = await axios.get('/api/user/userbyid');
+    try {
+        const response = await axios.post('https://api-staging.ts4u.us/api/user/verify');
 
-//         dispatch({
-//             type: ActionTypes.USER_LOADED,
-//             payload: response.data
-//         })
-//     } catch (error) {
-//         dispatch({
-//             type: ActionTypes.AUTH_ERROR
-//         })
-//     }
-// }
+        dispatch({
+            type: ActionTypes.USER_LOADED,
+            payload: response.data
+        })
+    } catch (error) {
+        dispatch({
+            type: ActionTypes.AUTH_ERROR
+        })
+    }
+}
 
 //register a user
 export const registerUser = ({ firstName, lastName, email, phone, password }) => async dispatch => {

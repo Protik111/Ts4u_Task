@@ -7,7 +7,7 @@ import { useRouter } from 'next/router';
 import { registerUser } from '../redux/action/Auth.action';
 
 const register = () => {
-    const { isOtpSend } = useSelector((state => state.authReducer));
+    const { isOtpSend, isAuthenticated, token } = useSelector((state => state.authReducer));
     const dispatch = useDispatch();
 
     const [formData, setFormData] = useState({
@@ -35,6 +35,10 @@ const register = () => {
 
     if(isOtpSend.email && isOtpSend.isOtpSend) {
         router.push('/verify');
+    }
+
+    if(isAuthenticated || token) {
+        router.push('/user');
     }
 
     console.log(isOtpSend, 'from register');
