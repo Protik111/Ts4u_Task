@@ -16,8 +16,6 @@ const index = () => {
         email: isOtpSend.email ? isOtpSend.email : '',
         otp: ''
     });
-    console.log(isOtpSend, 'from verify');
-
     const { email, otp } = formData;
     const router = useRouter();
 

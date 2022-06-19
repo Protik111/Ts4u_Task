@@ -40,9 +40,6 @@ const register = () => {
     if(isAuthenticated || token) {
         router.push('/user');
     }
-
-    console.log(isOtpSend, 'from register');
-
     return (
         <div className={`${styles.container} p-0`}>
             <Head>

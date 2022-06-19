@@ -1,13 +1,28 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import withAuth from "../../components/WithAuth";
+import withAuth from "../../components/protected/WithAuth";
 import { loadUser } from "../../redux/action/Auth.action";
 import setAuthToken from "../../utils/setAuthToken";
-import { Button } from 'antd';
+import { Button, Modal } from 'antd';
+import Profile from "../../components/profile/Profile";
 
 const index = () => {
     const { isOtpSend, isAuthenticated, token, user } = useSelector((state => state.authReducer));
     const dispatch = useDispatch();
+
+    const [isModalVisible, setIsModalVisible] = useState(false);
+
+    const showModal = () => {
+        setIsModalVisible(true);
+    };
+
+    const handleOk = () => {
+        setIsModalVisible(false);
+    };
+
+    const handleCancel = () => {
+        setIsModalVisible(false);
+    };
 
     useEffect(() => {
         const token = localStorage.getItem('token');
@@ -35,8 +50,11 @@ const index = () => {
                 <h6>This is your profile.</h6>
             </div>
             <div className="d-flex justify-content-center">
-                <Button type="primary">Click To See Full Information</Button>
+                <Button type="primary" onClick={showModal}>Click To See Full Information</Button>
             </div>
+            <Modal title={user.user.fullName + "'s Information"} visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
+                <Profile user={user}></Profile>
+            </Modal>
         </div>
     );
 };
