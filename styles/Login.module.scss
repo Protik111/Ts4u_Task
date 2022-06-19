@@ -9,11 +9,6 @@
     border-radius: 20px;
 }
 
-// .title {
-//     font-weight: 400;
-//     font-size: large;
-// }
-
 .allInput {
     display: grid;
     place-items: center;
@@ -31,11 +26,6 @@
         outline: none;
     }
 }
-
-// .input:focus {
-//     border: 1px solid #127e5a;
-//     outline: none;
-// }
 .loginBtn {
     background-color: #1d1588;
     width: 30vw;
@@ -49,15 +39,6 @@
         background-color: #341eb4;
     }
 }
-
-// .loginBtn:hover {
-//     background-color: #127e5a;
-// }
-
-// .account {
-//     font-weight: 400;
-//     transition: all 0.2s ease;
-// }
 
 .register:hover {
     cursor: pointer;

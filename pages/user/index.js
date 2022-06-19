@@ -45,7 +45,6 @@ const index = () => {
 
     const handleLogout = () => {
         dispatch(logoutUser());
-
         router.push('/login')
     }
 

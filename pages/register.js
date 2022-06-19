@@ -5,6 +5,8 @@ import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
 import { registerUser } from '../redux/action/Auth.action';
+import Alert from '../components/alert/Alert';
+import { setAlert } from '../redux/action/Alert.action';
 
 const register = () => {
     const { isOtpSend, isAuthenticated, token } = useSelector((state => state.authReducer));
@@ -31,6 +33,10 @@ const register = () => {
         if (firstName && lastName && email && phone && password) {
             dispatch(registerUser({ firstName, lastName, email, phone, password }))
         }
+
+        if (!firstName || !lastName || !email || !phone || !password) {
+            dispatch(setAlert('Please Provide All Information'))
+        }
     }
 
     if(isOtpSend.email && isOtpSend.isOtpSend) {
@@ -47,6 +53,7 @@ const register = () => {
                 <meta name="description" content="Register User" />
             </Head>
             <div className={`${styles.loginContainer} mt-5`}>
+                <Alert></Alert>
                 <div className="mt-3">
                     <h5 className="d-flex justify-content-center">Register Now.</h5>
                 </div>

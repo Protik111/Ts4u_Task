@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useState } from 'react';
 import { sendOtp } from '../../redux/action/Auth.action';
 import { useRouter } from 'next/router';
+import Alert from '../../components/alert/Alert';
 
 
 const index = () => {
@@ -23,7 +24,7 @@ const index = () => {
         setFormData({...formData, [e.target.name]: e.target.value})
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         if (email && otp) {
             dispatch(sendOtp({ email, otp }))
@@ -40,6 +41,7 @@ const index = () => {
                 <meta name="description" content="OTP" />
             </Head>
             <div className={`${styles.loginContainer} mt-5`}>
+                <Alert></Alert>
                 <div className="mt-3">
                     <h5 className="d-flex justify-content-center">Please Enter Your OTP That Was Sent To You Email.</h5>
                 </div>

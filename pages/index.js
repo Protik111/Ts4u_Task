@@ -12,6 +12,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className={styles.btnContainer}>
+        <h1>Hi, There!</h1>
         <Link href="/user" passHref><Button type="primary">See Your Data</Button></Link>
       </div>
     </div>

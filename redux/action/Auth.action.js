@@ -1,5 +1,6 @@
 import axios from 'axios';
 import setAuthToken from '../../utils/setAuthToken';
+import { setAlert } from './Alert.action';
 import { ActionTypes } from './Auth.type';
 
 export const loadUser = () => async dispatch => {
@@ -39,16 +40,9 @@ export const registerUser = ({ firstName, lastName, email, phone, password }) =>
             payload: response.data
         });
 
-        // dispatch(loadUser());
-
-        // dispatch(setAlert('Account Has Been Created.', 'Pcreated'))
-
     } catch (error) {
-        const errors = error.response.data.errors;
-        // console.log(errors, 'errors');
-        // if (errors) {
-        //     errors.map(error => dispatch(setAlert(error.msg, 'notMatchedP')))
-        // }
+        dispatch(setAlert(error.response.data.error, 'notMatchedP'))
+
         dispatch({
             type: ActionTypes.REGISTER_FAIL
         });
@@ -72,15 +66,8 @@ export const loginUser = ({ email, password }) => async dispatch => {
             type: ActionTypes.LOGIN_SUCCESS,
             payload: response.data
         });
-
-        // dispatch(loadUser());
-
     } catch (error) {
-        const errors = error.response.data.errors;
-        // console.log(errors, 'errors');
-        // if (errors) {
-        //     errors.map(error => dispatch(setAlert(error.msg, 'notMatchedP')))
-        // }
+        dispatch(setAlert(error.response.data.error, 'notMatchedP'))
         dispatch({
             type: ActionTypes.LOGIN_FAIL
         })
@@ -104,14 +91,8 @@ export const sendOtp = ({ email, otp }) => async dispatch => {
             payload: response.data
         });
 
-        // dispatch(loadUser());
-
     } catch (error) {
-        const errors = error.response.data.errors;
-        // console.log(errors, 'errors');
-        // if (errors) {
-        //     errors.map(error => dispatch(setAlert(error.msg, 'notMatchedP')))
-        // }
+        dispatch(setAlert(error.response.data.error, 'notMatchedP'))
         dispatch({
             type: ActionTypes.OTP_FAIL
         })
