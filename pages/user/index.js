@@ -1,3 +1,5 @@
+import withAuth from "../../components/WithAuth";
+
 const index = () => {
     return (
         <div>
@@ -6,4 +8,4 @@ const index = () => {
     );
 };
 
-export default index;
+export default withAuth(index);

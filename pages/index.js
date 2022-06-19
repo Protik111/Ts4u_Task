@@ -12,7 +12,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className={styles.btnContainer}>
-        <Link href="/login" passHref><Button type="primary">See Your Data</Button></Link>
+        <Link href="/user" passHref><Button type="primary">See Your Data</Button></Link>
       </div>
     </div>
   )
