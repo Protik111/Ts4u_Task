@@ -1,8 +1,7 @@
 import styles from '../../styles/Profile.module.scss';
 
 const Profile = (user) => {
-    const { email, id, phone, role , type, firstName, lastName, fullName } = user.user.user;
-    console.log(user.user.user);
+    const { email, id, phone, role , type, firstName, lastName, fullName } = user.user;
     return (
         <div>
             <ul className={styles.list}>

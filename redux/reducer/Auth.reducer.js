@@ -18,7 +18,7 @@ const authReducer = (state = initialState, {type, payload}) => {
         case ActionTypes.USER_LOADED:
             return {
                 ...state,
-                user: payload,
+                user: payload.user,
                 isAuthenticated: true,
                 loading: false,
                 success: true
@@ -30,7 +30,6 @@ const authReducer = (state = initialState, {type, payload}) => {
             }
         case ActionTypes.LOGIN_SUCCESS:
         case ActionTypes.OTP_SEND:
-            console.log(payload, 'payload');
             localStorage.setItem('token', payload.token)
             return {
                 ...state,
